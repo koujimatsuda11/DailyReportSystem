@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Tutorial of Develop</title>
+    <link rel="stylesheet" th:href="@{/css/report/list.css}">
+</head>
+<body>
+    <h1>日報管理システム</h1>
+    <h2>自分日報一覧(全件)</h2>
+    <!-- 追加ここから -->
+    <form method="post" th:action="@{/logout}">
+        <input type="submit" value="ログアウト">
+    </form><br>
+    <!-- 追加ここまで -->
+    <table>
+        <tr>
+            <th>氏名</th>
+            <th>日付</th>
+            <th>タイトル</th>
+            <th>操作</th>
+        </tr>
+        <tr th:each="report : ${reportlist}">
+            <td th:text="${report.employee.name}"></td>
+            <td th:text="${#temporals.format(report.reportDate, 'yyyy/MM/dd')}"></td>
+            <td th:text="${report.title}"></td>
+            <td><a th:href="@{/report/detail/{id}/(id=${report.id})}">詳細表示</a></td>
+        </tr>
+    </table>
+    <a th:href="@{/report/regist}">日報登録</a>
+    <!-- 変更ここまで -->
+</body>
+</html>

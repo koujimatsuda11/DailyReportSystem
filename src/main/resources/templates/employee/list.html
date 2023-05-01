@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Tutorial of Develop</title>
+    <link rel="stylesheet" th:href="@{/css/employee/list.css}">
+</head>
+<body>
+    <h1>employee情報管理システム</h1>
+    <h2>employee一覧(全件)</h2>
+    <!-- 追加ここから -->
+    <form method="post" th:action="@{/logout}">
+        <input type="submit" value="ログアウト">
+    </form><br>
+    <!-- 追加ここまで -->
+    <a th:href="@{/employee/regist}">employeeの登録</a>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>名前</th>
+            <th></th>
+        </tr>
+        <tr th:each="employee : ${employeelist}">
+            <td th:text="${employee.id}"></td>
+            <td th:text="${employee.name}"></td>
+            <td><a th:href="@{/employee/detail/{id}/(id=${employee.id})}">詳細表示</a></td>
+        </tr>
+    </table>
+    <!-- 変更ここまで -->
+</body>
+</html>

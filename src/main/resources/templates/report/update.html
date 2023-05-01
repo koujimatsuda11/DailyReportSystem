@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Tutorial of Develop</title>
+    <link rel="stylesheet" th:href="@{/css/report/update.css}">
+</head>
+<body>
+    <h1>日報情報管理システム</h1>
+    <h2>日報更新</h2>
+    <form method="post" th:action="@{/report/update/{id}/(id=${report.id})}" th:object="${report}">
+        <input type="hidden" id="id" name="id" th:value="*{id}">
+        <label for="date">日付</label>
+        <input type="date" th:field="*{reportDate}" th:errorclass="err">
+        <span th:errors="*{reportDate}" class="err"></span>
+        <br>
+        <label for="name">氏名</label>
+        <span th:text="*{employee.name}"></span>
+        <br>
+        <label for="title">タイトル</label>
+        <input type="text" th:field="*{title}" th:errorclass="err">
+        <span th:errors="*{title}" class="err"></span>
+        <br>
+        <label for="content">内容</label>
+        <textarea th:field="*{content}" th:errorclass="err"></textarea>
+        <span th:errors="*{content}" class="err"></span>
+        <br>
+
+        <input type="submit" value="更新実行">
+        <a th:href="@{/report/list}">更新せずに一覧に戻る</a>
+    </form>
+</body>
+</html>
