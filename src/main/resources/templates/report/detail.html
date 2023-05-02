@@ -3,10 +3,23 @@
 <head>
     <meta charset="utf-8">
     <title>Tutorial of Develop</title>
+    <link rel="stylesheet" th:href="@{/css/header.css}">
     <link rel="stylesheet" th:href="@{/css/report/update.css}">
 </head>
 <body>
-    <h1>日報管理システム</h1>
+    <header>
+        <div>
+            <h2><a th:href="@{/}">日報管理システム</a></h2>
+            <span><a th:href="@{/employee/list}">従業員管理</a></span>
+            <span><a th:href="@{/report/list}">日報管理</a></span>
+        </div>
+        <nav>
+            <ul>
+                <li><span th:text="${#authentication.principal.employee.name}"></span></li>
+                <li><a th:href="@{/logout}">ログアウト</a></li>
+            </ul>
+        </nav>
+    </header>
     <h2>日報詳細</h2>
         <label for="name">氏名</label>
         <p th:text="${report.employee.name}"></p>
@@ -20,7 +33,7 @@
         <p th:text="${#temporals.format(report.createdAt, 'yyyy/MM/dd HH:mm:ss')}"></p>
         <label for="updatedAt">更新日時</label>
         <p th:text="${#temporals.format(report.updatedAt, 'yyyy/MM/dd HH:mm:ss')}"></p>
-        <p><a th:href="@{/report/update/{id}/(id=${report.id})}">この日報を編集する</a></p>
+        <p th:if="${report.employee.id} == ${#authentication.principal.employee.id}"><a th:href="@{/report/update/{id}/(id=${report.id})}">この日報を編集する</a></p>
         <p><a th:href="@{/report/list}">一覧に戻る</a></p>
 </body>
 </html>

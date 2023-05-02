@@ -48,4 +48,8 @@ public class ReportService {
         report.setEmployee(currentReport.getEmployee());
         return ReportRepository.save(report);
     }
+    public boolean checkReportForUpdate(Integer id, Employee employee) {
+        Report report = this.getReport(id);
+        return report.getEmployee().getId() == employee.getId();
+    }
 }

@@ -64,13 +64,18 @@ public class ReportController {
 
     /** 日報更新画面を表示 */
     @GetMapping("/update/{id}/")
-    public String getReport(@PathVariable("id") Integer id, Report report, Model model) {
-        if (id == null) {
-            model.addAttribute("report", report);
-        } else {
-            // Modelに登録
+    public String getReport(@PathVariable("id") Integer id, Report report, Model model,  @AuthenticationPrincipal UserDetail userDetail) {
+        // Validationエラーではないとき
+        if(id != null ) {
+            // 日報の所有者と認証済みユーザが異なれば一覧にリダイレクト
+            if(!service.checkReportForUpdate(id, userDetail.getEmployee())) {
+                return "redirect:/report/list";
+            }
             model.addAttribute("report", service.getReport(id));
+        } else {
+            model.addAttribute("report", report);
         }
+
         // User更新画面に遷移
         return "report/update";
     }
@@ -80,7 +85,11 @@ public class ReportController {
     public String postReport(@PathVariable("id") Integer id, @Validated Report report, BindingResult res, @AuthenticationPrincipal UserDetail userDetail, Model model) {
         if(res.hasErrors()) {
             // エラーあり
-            return getReport(null, report, model);
+            return getReport(null, report, model, userDetail);
+        }
+        // 日報の所有者と認証済みユーザが異なれば一覧にリダイレクト
+        if(!service.checkReportForUpdate(report.getId(), userDetail.getEmployee())) {
+            return "redirect:/report/list";
         }
         // User登録
         service.updateReport(report);

@@ -3,10 +3,23 @@
 <head>
     <meta charset="utf-8">
     <title>Tutorial of Develop</title>
+    <link rel="stylesheet" th:href="@{/css/header.css}">
     <link rel="stylesheet" th:href="@{/css/report/update.css}">
 </head>
 <body>
-    <h1>日報情報管理システム</h1>
+    <header>
+        <div>
+            <h2><a th:href="@{/}">日報管理システム</a></h2>
+            <span><a th:href="@{/employee/list}">従業員管理</a></span>
+            <span><a th:href="@{/report/list}">日報管理</a></span>
+        </div>
+        <nav>
+            <ul>
+                <li><span th:text="${#authentication.principal.employee.name}"></span></li>
+                <li><a th:href="@{/logout}">ログアウト</a></li>
+            </ul>
+        </nav>
+    </header>
     <h2>日報更新</h2>
     <form method="post" th:action="@{/report/update/{id}/(id=${report.id})}" th:object="${report}">
         <input type="hidden" id="id" name="id" th:value="*{id}">
@@ -15,7 +28,7 @@
         <span th:errors="*{reportDate}" class="err"></span>
         <br>
         <label for="name">氏名</label>
-        <span th:text="*{employee.name}"></span>
+        <span th:text="${#authentication.principal.employee.name}"></span>
         <br>
         <label for="title">タイトル</label>
         <input type="text" th:field="*{title}" th:errorclass="err">

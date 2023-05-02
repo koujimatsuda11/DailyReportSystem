@@ -3,11 +3,24 @@
 <head>
     <meta charset="utf-8">
     <title>Tutorial of Develop</title>
+    <link rel="stylesheet" th:href="@{/css/header.css}">
     <link rel="stylesheet" th:href="@{/css/report/register.css}">
 </head>
 <body>
-    <h1>report情報管理システム</h1>
-    <h2>report登録</h2>
+    <header>
+        <div>
+            <h2><a th:href="@{/}">日報管理システム</a></h2>
+            <span><a th:href="@{/employee/list}">従業員管理</a></span>
+            <span><a th:href="@{/report/list}">日報管理</a></span>
+        </div>
+        <nav>
+            <ul>
+                <li><span th:text="${#authentication.principal.employee.name}"></span></li>
+                <li><a th:href="@{/logout}">ログアウト</a></li>
+            </ul>
+        </nav>
+    </header>
+    <h2>日報登録</h2>
     <form method="post" th:action="@{/report/regist}" th:object="${report}">
         <label for="date">日付</label>
         <input type="date" th:field="*{reportDate}" th:errorclass="err">
