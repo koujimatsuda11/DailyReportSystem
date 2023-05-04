@@ -1,5 +1,6 @@
 package com.techacademy.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -39,6 +40,9 @@ public class ReportService {
     @Transactional
     public Report saveReport(Report report, UserDetail userDetail) {
         report.setEmployee(userDetail.getEmployee());
+        if (report.getReportDate() == null) {
+            report.setReportDate(LocalDate.now());
+        }
         return ReportRepository.save(report);
     }
 
@@ -46,6 +50,9 @@ public class ReportService {
     public Report updateReport(Report report) {
         Report currentReport = this.getReport(report.getId());
         report.setEmployee(currentReport.getEmployee());
+        if (report.getReportDate() == null) {
+            report.setReportDate(LocalDate.now());
+        }
         return ReportRepository.save(report);
     }
     public boolean checkReportForUpdate(Integer id, Employee employee) {
