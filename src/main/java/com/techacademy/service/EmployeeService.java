@@ -54,7 +54,7 @@ public class EmployeeService {
         auth.setCode(employee.getAuthentication().getCode());
         auth.setRole(employee.getAuthentication().getRole());
 
-        if (employee.getAuthentication().getPassword() == null) {
+        if (employee.getAuthentication().getPassword() == "") {
             auth.setPassword(currentEmployee.getAuthentication().getPassword());
         } else {
             auth.setPassword(passwordEncoder.encode(employee.getAuthentication().getPassword()));

@@ -38,8 +38,7 @@ public class Report {
     /** 日報の日付。null不許可 */
     @Column(nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @NotNull
-    private LocalDate reportDate;
+    private LocalDate reportDate = LocalDate.now();
 
     /** タイトル。255文字。null不許可 */
     @Column(length = 255, nullable = false)
