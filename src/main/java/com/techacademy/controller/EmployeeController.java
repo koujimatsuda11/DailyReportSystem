@@ -1,5 +1,7 @@
 package com.techacademy.controller;
 
+import java.util.List;
+
 import javax.validation.groups.Default;
 
 import org.springframework.stereotype.Controller;
@@ -29,7 +31,9 @@ public class EmployeeController {
     @GetMapping("/list")
     public String getList(Model model) {
         // 全件検索結果をModelに登録
-        model.addAttribute("employeelist", service.getEmployeeList());
+        List<Employee> employeelist = service.getEmployeeList();
+        model.addAttribute("employeelist", employeelist);
+        model.addAttribute("size", employeelist.size());
         // employee/list.htmlに画面遷移
         return "employee/list";
     }

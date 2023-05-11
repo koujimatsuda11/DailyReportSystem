@@ -1,5 +1,7 @@
 package com.techacademy.controller;
 
+import java.util.List;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +29,9 @@ public class ReportController {
     @GetMapping("/list")
     public String getList(Model model) {
         // 全件検索結果をModelに登録
-        model.addAttribute("reportlist", service.getReportList());
+        List<Report> reportlist = service.getReportList();
+        model.addAttribute("reportlist", reportlist);
+        model.addAttribute("size", reportlist.size());
         return "report/list";
     }
 
