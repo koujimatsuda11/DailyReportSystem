@@ -31,6 +31,7 @@
             <td><a th:href="@{/employee/detail/{id}/(id=${employee.id})}">詳細表示</a></td>
         </tr>
     </table>
+    <p>(全<span th:text="${size}"></span>件)</p>
     <!-- 変更ここまで -->
 </body>
 </html>
