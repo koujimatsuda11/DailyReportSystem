@@ -15,10 +15,11 @@
         <nav>
             <ul>
                 <li><span th:text="${#authentication.principal.employee.name}"></span></li>
-                <li><a th:href="@{/logout}">ログアウト</a></li>
+                <li><form method="post" th:action="@{/logout}"><input type="submit" value="ログアウト"></form></li>
             </ul>
         </nav>
     </header>
     <h2>日報管理システム</h2>
+<br>
 </body>
 </html>
